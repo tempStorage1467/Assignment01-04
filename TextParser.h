@@ -26,29 +26,18 @@ struct Token {
     TokenType tokenType;
 };
 
-struct TextAnalysisSummary {
-    unsigned int numWords = 0;
-    unsigned int numSentences = 0;
-    unsigned int numSyllables = 0;
-    unsigned int numTokens = 0;
-};
 
 class TextParser {
  private:
     bool showDebug = false;
-    TextAnalysisSummary textSummary;
     TokenScanner tokenizer;
-    int getSyllableCount(string word);
-    bool isVowel(char letter);
     Vector<Token> tokens;
 
  public:
     TextParser(istream& fileStream);
     TextParser(string input);
-    void showDebugInformation(bool toShow);
     void processInput();
-    TextAnalysisSummary getTextAnalysisSummary();
-    
+    Vector<Token> getTokens();
 };
 
 #endif /* defined(__Flesch_Kincaid__TextParser__) */

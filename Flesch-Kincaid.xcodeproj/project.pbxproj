@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1A13963417170AD100634AD4 /* TextParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A13963217170AD100634AD4 /* TextParser.cpp */; };
-		1A13964417184F8700634AD4 /* TextParserTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A13964217184F8700634AD4 /* TextParserTest.cpp */; };
+		1A13964417184F8700634AD4 /* TokenAnalyzerTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A13964217184F8700634AD4 /* TokenAnalyzerTest.cpp */; };
+		1A1396481719BFD200634AD4 /* TokenAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1396461719BFD200634AD4 /* TokenAnalyzer.cpp */; };
 		2B41FE03170E970100F12A5E /* FleschKincaid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B41FE02170E970100F12A5E /* FleschKincaid.cpp */; };
 		E3DDB4120D2F60C500348E1D /* libStanfordCPPLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3DDB4110D2F60C500348E1D /* libStanfordCPPLib.a */; };
 /* End PBXBuildFile section */
@@ -16,8 +17,10 @@
 /* Begin PBXFileReference section */
 		1A13963217170AD100634AD4 /* TextParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextParser.cpp; sourceTree = "<group>"; };
 		1A13963317170AD100634AD4 /* TextParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextParser.h; sourceTree = "<group>"; };
-		1A13964217184F8700634AD4 /* TextParserTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextParserTest.cpp; sourceTree = "<group>"; };
-		1A13964317184F8700634AD4 /* TextParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextParserTest.h; sourceTree = "<group>"; };
+		1A13964217184F8700634AD4 /* TokenAnalyzerTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TokenAnalyzerTest.cpp; sourceTree = "<group>"; };
+		1A13964317184F8700634AD4 /* TokenAnalyzerTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenAnalyzerTest.h; sourceTree = "<group>"; };
+		1A1396461719BFD200634AD4 /* TokenAnalyzer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TokenAnalyzer.cpp; sourceTree = "<group>"; };
+		1A1396471719BFD200634AD4 /* TokenAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenAnalyzer.h; sourceTree = "<group>"; };
 		2B41FE02170E970100F12A5E /* FleschKincaid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FleschKincaid.cpp; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Flesch-Kincaid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flesch-Kincaid.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,10 +51,12 @@
 		29B97314FDCFA39411CA2CEA /* Basic */ = {
 			isa = PBXGroup;
 			children = (
+				1A1396461719BFD200634AD4 /* TokenAnalyzer.cpp */,
+				1A1396471719BFD200634AD4 /* TokenAnalyzer.h */,
 				2B41FE02170E970100F12A5E /* FleschKincaid.cpp */,
 				1A13963217170AD100634AD4 /* TextParser.cpp */,
-				1A13964217184F8700634AD4 /* TextParserTest.cpp */,
-				1A13964317184F8700634AD4 /* TextParserTest.h */,
+				1A13964217184F8700634AD4 /* TokenAnalyzerTest.cpp */,
+				1A13964317184F8700634AD4 /* TokenAnalyzerTest.h */,
 				1A13963317170AD100634AD4 /* TextParser.h */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -159,7 +164,8 @@
 			files = (
 				2B41FE03170E970100F12A5E /* FleschKincaid.cpp in Sources */,
 				1A13963417170AD100634AD4 /* TextParser.cpp in Sources */,
-				1A13964417184F8700634AD4 /* TextParserTest.cpp in Sources */,
+				1A13964417184F8700634AD4 /* TokenAnalyzerTest.cpp in Sources */,
+				1A1396481719BFD200634AD4 /* TokenAnalyzer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

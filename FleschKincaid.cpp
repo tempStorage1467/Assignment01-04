@@ -12,7 +12,8 @@
 #include "simpio.h"
 #include "filelib.h"
 #include "TextParser.h"
-#include "TextParserTest.h"
+#include "TokenAnalyzer.h"
+#include "TokenAnalyzerTest.h"
 
 using namespace std;
 
@@ -31,7 +32,7 @@ string getFile(ifstream& stream) {
 }
 
 void runTests() {
-    TextParserTest test = TextParserTest();
+    TokenAnalyzerTest test = TokenAnalyzerTest();
     test.runTests();
 }
 
@@ -52,29 +53,16 @@ int main() {
     istream& stream = fileStream;
     
     // tokenize file
-    //   showDebugInformation()
-    //
     //   accept istream and read the stream into a vector of tokens
-    //
-    //   a wrapper layer ontop of the TokenScanner to store the vector
-    //     and control what types of tokens count vs. are discarded
-    //     wrapper will also count up words, sentences, etc. so we don't have
-    //     iterate a file twice (once to tokenize, another time to analyze)
-    //
-    //   Wrapper will also count as it goes count: numWords, numSentences,
-    //                                             numSyllables
-    //
-    //   Tokenize strings like isn't as a single token isn't rather
-    //     than the three tokens isn, ', and t.
-    //   Store data in a struct about numWords, numSentences, numSyllables
     TextParser parser = TextParser(stream);
-    parser.showDebugInformation(SHOW_DEBUG_INFO);
     parser.processInput();
+    Vector<Token> tokens = parser.getTokens();
 
-    // analyze text based upon tokenizer
-    //   showDebugInformation
-    //   take in a struct with numWords, numSentences, numSyllables
+    // analyze text based upon a vector of tokens
+    //     count up words, sentences, etc.
     //   store constants; return getGradeLevel()
+    TokenAnalyzer analyzer = TokenAnalyzer(tokens);
+    analyzer.getTextAnalysisSummary();
     
     // present information
     
