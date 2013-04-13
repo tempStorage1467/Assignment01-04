@@ -33,7 +33,7 @@ bool TokenAnalyzerTest::assertEquals(int expected, int result) {
     }
 }
 
-bool TokenAnalyzerTest::runTests() {
+void TokenAnalyzerTest::runTests() {
     // TEST FILE #1
     ifstream fileStream1;
     openFile(fileStream1, "Hi.txt");
@@ -44,6 +44,7 @@ bool TokenAnalyzerTest::runTests() {
     parser1.processInput();
     Vector<Token> tokens1 = parser1.getTokens();
     TokenAnalyzer analyzer1 = TokenAnalyzer(tokens1);
+    analyzer1.showDebugInformation(false);
     TextAnalysisSummary summary1 = analyzer1.getTextAnalysisSummary();
     
     assertEquals(1, summary1.numWords);
@@ -60,6 +61,7 @@ bool TokenAnalyzerTest::runTests() {
     parser2.processInput();
     Vector<Token> tokens2 = parser2.getTokens();
     TokenAnalyzer analyzer2 = TokenAnalyzer(tokens2);
+    analyzer2.showDebugInformation(false);
     TextAnalysisSummary summary2 = analyzer2.getTextAnalysisSummary();
     
     assertEquals(7, summary2.numWords);

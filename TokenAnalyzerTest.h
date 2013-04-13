@@ -22,7 +22,7 @@ using namespace std;
 
 class TokenAnalyzerTest {
 public:
-    bool runTests();
+    void runTests();
 
 private:
     bool assertEquals(int expected, int result);
