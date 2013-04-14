@@ -2,11 +2,17 @@
  * File: FleschKincaid.cpp
  * ----------------------
  * Name: Eric Beach
- * Section: [TODO: enter section leader here]
+ * Section: SCPD, Aaron Broder <abroder@stanford.edu>
+ * Copyright 2013 Eric Beach <ebeach@google.com>
  * This file is the starter project for the Flesch-Kincaid problem.
- * [TODO: rewrite the documentation]
+ *  It asks about debug information, prompts for file name, and outputs
+ *  an analysis of the text.
+ *
+ * This file lightly linted using
+ * http://google-styleguide.googlecode.com/svn/trunk/cpplint/cpplint.py
  */
 
+#include <string>
 #include <iostream>
 #include "console.h"
 #include "simpio.h"
@@ -17,7 +23,10 @@
 
 using namespace std;
 
-bool showDebugInformation () {
+/*
+ * Ask the user whether to show debug information.
+ */
+bool showDebugInformation() {
     string toDebug = getLine("Show debugging information? (Y or N) ");
     while (toDebug != "Y" && toDebug != "y" &&
            toDebug != "N" && toDebug != "n") {
@@ -27,19 +36,29 @@ bool showDebugInformation () {
     return (toDebug == "y" || toDebug == "Y");
 }
 
+/*
+ * Prompt the user for a file and read it into a stream.
+ */
 string getFile(ifstream& stream) {
     return promptUserForFile(stream, "Please enter a file to analyze: ");
 }
 
+/*
+ * Run unit tests on parsing and analyzing texts.
+ */
 void runTests() {
     TokenAnalyzerTest test = TokenAnalyzerTest();
     test.runTests();
 }
 
+/*
+ * Run unit tests, prompt the user for whether to debug, and the file
+ *  to read. Analyze the file and output it to the user.
+ */
 int main() {
     // run tests
     runTests();
-    
+
     // prompt user for whether to show debug information
     const bool SHOW_DEBUG_INFO = showDebugInformation();
 
@@ -51,7 +70,7 @@ int main() {
 
     // convert ifstream to istream for use by tokenizer
     istream& stream = fileStream;
-    
+
     // tokenize file
     //   accept istream and read the stream into a vector of tokens
     TextParser parser = TextParser(stream);
@@ -62,10 +81,14 @@ int main() {
     //     count up words, sentences, etc.
     //   store constants; return getGradeLevel()
     TokenAnalyzer analyzer = TokenAnalyzer(tokens);
-    analyzer.getTextAnalysisSummary();
-    
+    analyzer.showDebugInformation(SHOW_DEBUG_INFO);
+    TextAnalysisSummary summary = analyzer.getTextAnalysisSummary();
+
     // present information
-    
-    // [TODO: fill in the code]
+    cout << "Words: " << summary.numWords  << endl;
+    cout << "Syllables: " << summary.numSyllables  << endl;
+    cout << "Sentences: " << summary.numSentences  << endl;
+    cout << "Grade Level: " << summary.gradeLevel  << endl;
+
     return 0;
 }

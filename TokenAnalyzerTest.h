@@ -2,31 +2,37 @@
  * File: TextParserTest.h
  * ----------------------
  * Name: Eric Beach
- * Section: [TODO: enter section leader here]
- * Copyright 2013 <Eric Beach>
+ * Section: SCPD, Aaron Broder <abroder@stanford.edu>
+ * Copyright 2013 Eric Beach <ebeach@google.com>
  * This file defines a prototype for a class to perform unit tests
  *   on TextParser.
- * [TODO: rewrite the documentation]
  *
  * This file lightly linted using
  * http://google-styleguide.googlecode.com/svn/trunk/cpplint/cpplint.py
  */
 
-#ifndef __Flesch_Kincaid__TextParserTest__
-#define __Flesch_Kincaid__TextParserTest__
+#ifndef TOKENANALYZERTEST_H_
+#define TOKENANALYZERTEST_H_
 
 #include <iostream>
-#include "TokenAnalyzer.h"
 #include "TextParser.h"
+#include "TokenAnalyzer.h"
 using namespace std;
 
+/*
+ * Definition of a class used to test token analysis.
+ */
 class TokenAnalyzerTest {
-public:
+ public:
+    // run the tests on the token analyzer.
     void runTests();
 
-private:
+ private:
+    // determine whether two integers are equal
     bool assertEquals(int expected, int result);
+
+    // determine whether two doubles are equal
     bool assertEquals(double expected, double result);
 };
 
-#endif /* defined(__Flesch_Kincaid__TextParserTest__) */
+#endif  // TOKENANALYZERTEST_H_

@@ -2,28 +2,31 @@
  * File: TextParser.cpp
  * ----------------------
  * Name: Eric Beach
- * Section: [TODO: enter section leader here]
- * Copyright 2013 <Eric Beach>
- * This file implements a class that takes in a file or string and
+ * Section: SCPD, Aaron Broder <abroder@stanford.edu>
+ * Copyright 2013 Eric Beach <ebeach@google.com>
+ * This file implements a class that takes in a file and
  *   parses it with a tokenizer and analyzes the complexity of the writing.
- * [TODO: rewrite the documentation]
  *
  * This file lightly linted using
  * http://google-styleguide.googlecode.com/svn/trunk/cpplint/cpplint.py
  */
 
-#include "TextParser.h"
+#include <string>
 #include <iostream>
+#include "TextParser.h"
+
 using namespace std;
 
-TextParser::TextParser(string strInput) {
-    tokenizer = TokenScanner(strInput);
-}
-
+/*
+ * Constructor to accept a file stream for parsing with a tokenizer.
+ */
 TextParser::TextParser(istream& fileInput) {
     tokenizer = TokenScanner(fileInput);
 }
 
+/*
+ * Process input into tokens, for analysis later by another class.
+ */
 void TextParser::processInput() {
     tokenizer.ignoreWhitespace();
 
@@ -39,6 +42,9 @@ void TextParser::processInput() {
     }
 }
 
+/*
+ * Get the tokens parsed from the file stream.
+ */
 Vector<Token> TextParser::getTokens() {
     return tokens;
 }

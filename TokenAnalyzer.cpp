@@ -2,27 +2,60 @@
  * File: TokenAnalyzer.cpp
  * ----------------------
  * Name: Eric Beach
- * Section: [TODO: enter section leader here]
- * Copyright 2013 <Eric Beach>
+ * Section: SCPD, Aaron Broder <abroder@stanford.edu>
+ * Copyright 2013 Eric Beach <ebeach@google.com>
  * This file implements a class that analyzes tokens to compute grade
  *   level complexity.
- * [TODO: rewrite the documentation]
  *
  * This file lightly linted using
  * http://google-styleguide.googlecode.com/svn/trunk/cpplint/cpplint.py
  */
 
+#include <string>
 #include "TokenAnalyzer.h"
 
+/*
+ * Constructor to receive tokens and subsequently perform analysis.
+ */
 TokenAnalyzer::TokenAnalyzer(Vector<Token>& inputTokens) {
     tokens = inputTokens;
 }
 
+/*
+ * Compute the grade level of the analyzed text.
+ */
+double TokenAnalyzer::getGradeLevel() {
+
+    // As a minor edge case, if a file doesn't appear to have any words
+    //   or sentences in it, you can just pretend that it contains a single
+    //   word and a single sentence (which prevents a division by zero error
+    //   when evaluating the above formula).
+    if (textSummary.numWords == 0) {
+        textSummary.numWords = 1;
+    }
+    if (textSummary.numSentences == 0) {
+        textSummary.numSentences = 1;
+    }
+    double c1Val = double(textSummary.numWords)/
+                     double(textSummary.numSentences);
+    double c2Val = double(textSummary.numSyllables)/
+                     double(textSummary.numWords);
+    return -15.59 + ((0.39) * c1Val)
+                  + ((11.8) * c2Val);
+}
+
+/*
+ * Obtain the analyzed and computed summary of the text.
+ */
 TextAnalysisSummary TokenAnalyzer::getTextAnalysisSummary() {
     analyzeTokens();
+    textSummary.gradeLevel = getGradeLevel();
     return textSummary;
 }
 
+/*
+ * Determine whether a character is a vowel for purposes of this test.
+ */
 bool TokenAnalyzer::isVowel(char letter) {
     if (letter == 'a' || letter == 'e' || letter == 'i' ||
         letter == 'o' || letter == 'u' || letter == 'y') {
@@ -32,10 +65,16 @@ bool TokenAnalyzer::isVowel(char letter) {
     }
 }
 
+/*
+ * Show debugging information as the text is being parsed into tokens.
+ */
 void TokenAnalyzer::showDebugInformation(bool toShow) {
     showDebug = toShow;
 }
 
+/*
+ * Convert a string to all lowercase.
+ */
 string TokenAnalyzer::stringToLower(string str) {
     for (int i = 0; i < str.length(); i++) {
         str[i] = tolower(str[i]);
@@ -43,6 +82,9 @@ string TokenAnalyzer::stringToLower(string str) {
     return str;
 }
 
+/*
+ * Compute the number of syllables in a word.
+ */
 int TokenAnalyzer::getSyllableCount(string word) {
     word = stringToLower(word);
     int numSyllables = 0;
@@ -50,7 +92,7 @@ int TokenAnalyzer::getSyllableCount(string word) {
         if (isVowel(word[i])) {
             numSyllables++;
         }
-        
+
         // Exclude vowels that have vowels directly before them.
         if (isVowel(word[i]) && i > 0 && isVowel(word[i - 1])) {
             numSyllables--;
@@ -64,6 +106,11 @@ int TokenAnalyzer::getSyllableCount(string word) {
     return numSyllables;
 }
 
+/*
+ * Perform processing on tokens before they are analyzed for words, sentences,
+ *   etc. This is necessary to turn phrases such as "isn't" from three
+ *   tokens into one.
+ */
 void TokenAnalyzer::preProcessTokens() {
     string currentStr;
     TokenType currentType;
@@ -87,25 +134,27 @@ void TokenAnalyzer::preProcessTokens() {
                         cout << "New Token: [" << mergedToken.tokenVal << "]"
                          << endl;
                     }
-                    
+
                     tokens.set(i - 1, mergedToken);
                     tokens.remove(i);
-                    
+
                     // remove i twice since removing the first i bumps down i
                     tokens.remove(i);
                 }
                 break;
         }
     }
+    if (showDebug) {
+        cout << "-- End Pre-Process --" << endl;
+    }
 }
 
+/*
+ * Analyze tokens to compute the number of sentences, syllables, etc.
+ */
 void TokenAnalyzer::analyzeTokens() {
     preProcessTokens();
-    //    int nSyllables;
-    //    string previousStr;
-    //    char lastCharRead;
-    //    int nextCharToRead;
-    
+
     int nSyllables;
     string currentStr;
     TokenType currentType;
@@ -123,33 +172,32 @@ void TokenAnalyzer::analyzeTokens() {
                 textSummary.numSyllables += nSyllables;
                 break;
             case OPERATOR:
-                if (showDebug) {
-                    cout << "Token: [" << currentStr << "] (end of sentence)"
-                    << endl;
-                }
-                textSummary.numSentences++;
-                break;
             case SEPARATOR:
+                // As an approximation of the number of sentences,
+                //   you can just count up the number of punctuation
+                //   symbols that appear at the ends of sentences
+                //   (namely, periods, exclamation points, and question
+                //   marks).
+                if (currentStr == "," || currentStr == "'") {
+                    if (showDebug) {
+                        cout << "Token: [" << currentStr << "]" << endl;
+                        continue;
+                    }
+                }
+
+                if (currentStr == "." || currentStr == "!" ||
+                    currentStr == "?") {
+                    if (showDebug) {
+                        cout << "Token: [" << currentStr << "] "
+                             << "(end of sentence)" << endl;
+                    }
+                    textSummary.numSentences++;
+                }
                 break;
             case NUMBER:
             case STRING:
+                cout << "Other Thing: " << currentStr;
                 break;
         }
     }
-    
-    /*
-     switch (type) {
-     case SEPARATOR:
-     lastCharRead = previousStr[previousStr.length() - 1];
-     nextCharToRead = tokenizer.getChar();
-     if (lastCharRead < 46) {
-     textSummary.numSentences++;
-     }
-     tokenizer.ungetChar(nextCharToRead);
-     break;
-
-     }
-     */
-    
-    //        previousStr = currentStr;
 }
