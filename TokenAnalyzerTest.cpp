@@ -4,6 +4,7 @@
  * Name: Eric Beach
  * Section: SCPD, Aaron Broder <abroder@stanford.edu>
  * Copyright 2013 Eric Beach <ebeach@google.com>
+ * Assignment 1 - Pt. 4 - Flesch-Kincaid
  * This file tests the class that analyzes the tokens read in from a file.
  *
  * This file lightly linted using

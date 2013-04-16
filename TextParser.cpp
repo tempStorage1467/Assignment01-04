@@ -4,6 +4,7 @@
  * Name: Eric Beach
  * Section: SCPD, Aaron Broder <abroder@stanford.edu>
  * Copyright 2013 Eric Beach <ebeach@google.com>
+ * Assignment 1 - Pt. 4 - Flesch-Kincaid
  * This file implements a class that takes in a file and
  *   parses it with a tokenizer and analyzes the complexity of the writing.
  *

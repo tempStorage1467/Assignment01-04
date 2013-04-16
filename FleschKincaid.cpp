@@ -4,6 +4,7 @@
  * Name: Eric Beach
  * Section: SCPD, Aaron Broder <abroder@stanford.edu>
  * Copyright 2013 Eric Beach <ebeach@google.com>
+ * Assignment 1 - Pt. 4 - Flesch-Kincaid
  * This file is the starter project for the Flesch-Kincaid problem.
  *  It asks about debug information, prompts for file name, and outputs
  *  an analysis of the text.

@@ -4,6 +4,7 @@
  * Name: Eric Beach
  * Section: SCPD, Aaron Broder <abroder@stanford.edu>
  * Copyright 2013 Eric Beach <ebeach@google.com>
+ * Assignment 1 - Pt. 4 - Flesch-Kincaid
  * This file implements a class that analyzes tokens to compute grade
  *   level complexity.
  *
@@ -58,7 +59,9 @@ TextAnalysisSummary TokenAnalyzer::getTextAnalysisSummary() {
  */
 bool TokenAnalyzer::isVowel(char letter) {
     if (letter == 'a' || letter == 'e' || letter == 'i' ||
-        letter == 'o' || letter == 'u' || letter == 'y') {
+        letter == 'o' || letter == 'u' || letter == 'y' ||
+        letter == 'A' || letter == 'E' || letter == 'I' ||
+        letter == 'O' || letter == 'U' || letter == 'Y') {
         return true;
     } else {
         return false;
@@ -103,6 +106,14 @@ int TokenAnalyzer::getSyllableCount(string word) {
     if (word[word.length() - 1] == 'e') {
         numSyllables--;
     }
+    
+    // Notice that under this definition, the word “me” would have zero
+    //   syllables in it, since the final “e” doesn't contribute to
+    //   the total. To address this, you should assume that all words
+    //   have at least one syllable in them.
+    if (numSyllables == 0) {
+        numSyllables = 1;
+    }
     return numSyllables;
 }
 
@@ -118,12 +129,24 @@ void TokenAnalyzer::preProcessTokens() {
         currentType = tokens.get(i).tokenType;
         currentStr = tokens.get(i).tokenVal;
         
+        // "To determine what counts as a word, you can assume that
+        //   any token that starts with a letter counts as a word, so apple
+        //   and A-1 would both be considered words."
+        //
+        //  I chose to implement my word counting such that 'Hello' counts as
+        //   one word since: (a) this is more intelligent (b) this technically
+        //   meets the requirements in that it still counts as a word
+        //   any token that starts with a letter... it just does more than
+        //   that.
+        
         switch (currentType) {
             case OPERATOR:
                 // detect contractions and fix by merging into one token
+                // need to catch "isn't" but not "me. 'Hello now.'"
                 if (i > 0 && tokens.get(i).tokenVal == "'" &&
                     tokens.get(i - 1).tokenType == WORD &&
-                    tokens.get(i + 1).tokenType == WORD) {
+                    tokens.get(i + 1).tokenType == WORD &&
+                    tokens.get(i + 1).tokenVal.length() == 1) {
                     Token mergedToken;
                     mergedToken.tokenType = WORD;
                     mergedToken.tokenVal = tokens.get(i - 1).tokenVal +

@@ -4,6 +4,7 @@
  * Name: Eric Beach
  * Section: SCPD, Aaron Broder <abroder@stanford.edu>
  * Copyright 2013 Eric Beach <ebeach@google.com>
+ * Assignment 1 - Pt. 4 - Flesch-Kincaid
  * This file defines a class for analyzing a vector of tokens to compute
  *   the grade level.
  *
